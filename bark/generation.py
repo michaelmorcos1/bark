@@ -25,7 +25,7 @@ if (
     torch.cuda.is_bf16_supported()
 ):
     try:
-        autocast = funcy.partial(torch.amp.autocast, dtype=torch.bfloat16)
+        autocast = funcy.partial(torch.cuda.amp.autocast, dtype=torch.bfloat16)
     except AttributeError:
         # Fallback in case `torch.amp` or `torch.amp.autocast` does not exist
         print("autocast fallback called")
