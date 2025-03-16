@@ -20,11 +20,11 @@ from .model_fine import FineGPT, FineGPTConfig
 if (
     torch.cuda.is_available() and
     hasattr(torch.cuda, "amp") and
-    hasattr(torch.amp, "autocast") and
+    hasattr(torch.cuda.amp, "autocast") and
     hasattr(torch.cuda, "is_bf16_supported") and
     torch.cuda.is_bf16_supported()
 ):
-    autocast = funcy.partial(torch.amp.autocast, dtype=torch.bfloat16)
+    autocast = funcy.partial(torch.cuda.amp.autocast, dtype=torch.bfloat16)
 else:
     @contextlib.contextmanager
     def autocast():
